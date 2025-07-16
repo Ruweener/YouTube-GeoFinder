@@ -1,4 +1,5 @@
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
+import { useState } from 'react';
 import { API_KEY } from '../services/api';
 
 const containerStyle = {
@@ -11,23 +12,24 @@ const defaultCenter = {
     lng: -79.3832,
 };
 
-function MapWithClick({clickedCoords, setClickedCoords}) {
-
+function MapWithClick({ clickedCoords, setClickedCoords, radius = 0 }) {
     const { isLoaded, errorCode } = useJsApiLoader({
-        googleMapsApiKey: API_KEY // Replace with your key
+        googleMapsApiKey: API_KEY
     });
+
+    // Track if user has clicked
+    const [userHasClicked, setUserHasClicked] = useState(false);
 
     const handleClick = (e) => {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
         setClickedCoords({ lat, lng });
-        console.log('Clicked coordinates:', lat, lng);
-    }
+        setUserHasClicked(true); // This disables the initial render logic
+    };
 
     return (
-
         <>
-            {errorCode && <p>`Error with loading Google Maps: ${errorCode}`</p>}
+            {errorCode && <p>{`Error with loading Google Maps: ${errorCode}`}</p>}
             {isLoaded ? (
                 <GoogleMap
                     mapContainerStyle={containerStyle}
@@ -36,14 +38,25 @@ function MapWithClick({clickedCoords, setClickedCoords}) {
                     onClick={handleClick}
                 >
                     {clickedCoords && <Marker position={clickedCoords} />}
+                    {clickedCoords && (
+                        <Circle
+                            center={clickedCoords}
+                            radius={radius * 1000}
+                            options={{
+                                fillColor: "#2196f3",
+                                fillOpacity: 0.2,
+                                strokeColor: "#2196f3",
+                                strokeOpacity: 0.5,
+                                strokeWeight: 2,
+                            }}
+                        />
+                    )}
                 </GoogleMap>
-            ) : <p>Loading Map...</p>}
+            ) : (
+                <p>Loading Map...</p>
+            )}
         </>
-
-
-    )
-
-
+    );
 }
 
 export default MapWithClick;
