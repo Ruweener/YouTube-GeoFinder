@@ -1,13 +1,10 @@
 
 function YouTubeVideoEmbed({ videoId }) {
     return (
-        <div style={{ margin: '1rem 0' }}>
+        <div className="video-item-wrapper">
             <iframe
-                width="560"
-                height="315"
                 src={`https://www.youtube.com/embed/${videoId}`}
                 title="YouTube video player"
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
             />

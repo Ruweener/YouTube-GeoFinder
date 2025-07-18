@@ -17,14 +17,12 @@ function MapWithClick({ clickedCoords, setClickedCoords, radius = 0 }) {
         googleMapsApiKey: API_KEY
     });
 
-    // Track if user has clicked
-    const [userHasClicked, setUserHasClicked] = useState(false);
 
     const handleClick = (e) => {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
         setClickedCoords({ lat, lng });
-        setUserHasClicked(true); // This disables the initial render logic
+        console.log(e);
     };
 
     return (

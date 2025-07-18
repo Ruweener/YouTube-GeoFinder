@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 
 export default function DiscreteSlider({ value, setValue }) {
+    const defaultVal = 50;
 
     function valuetext(value) {
         return `${value}km`;
@@ -17,16 +18,16 @@ export default function DiscreteSlider({ value, setValue }) {
         <Box sx={{ width: '100%' }}>
             <Slider
                 aria-label="Radius"
-                defaultValue={30}
+                defaultValue={defaultVal}
                 value={value}
                 getAriaValueText={valuetext}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
-                shiftStep={30}
-                step={50}
+                shiftStep={10}
+                step={10}
                 marks
-                min={50}
-                max={1000}
+                min={10}
+                max={100}
             />
         </Box>
     );

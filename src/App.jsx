@@ -1,29 +1,39 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { fetchYouTubeVideosByLocation } from './services/api';
-import "./App.css";
+import "./css/App.css"
 import MapComponent from './components/MapComponent';
 import DiscreteSlider from "./components/Slider";
 import YouTubeVideoEmbed from "./components/YouTubeVideoEmbed";
 
 function App() {
 	const [videoIds, setVideoIds] = useState([]);
-	const [radius, setRadius] = useState(500);
+	const [radius, setRadius] = useState(50);
 	const [clickedCoords, setClickedCoords] = useState({ lat: 43.6532, lng: -79.3832 }) //default coordinates (toronto, ON CA)
+	const [videoMessage, setVideoMessage] = useState("");
 
 	const videoList = useMemo(() => (
-		videoIds.map((videoId, id) => {
-			return <YouTubeVideoEmbed videoId={videoId} key={id}/>
-		})
+		<div className="video-list">
+			{videoIds.map((videoId, id) => {
+				return <YouTubeVideoEmbed videoId={videoId} key={id} />
+			})}
+		</div>
+
 	), [videoIds]);
 
 	useEffect(() => {
-		console.log(clickedCoords);
-	}, [clickedCoords])
+		setVideoMessage(`${videoIds.length} Videos Found`)
+	}, [videoIds])
+
+	useEffect(() => {
+		setVideoMessage("Click search to see results");
+	}, [])
 
 	async function loadFetchedVideos() {
-		const data = await fetchYouTubeVideosByLocation(clickedCoords.lat, clickedCoords.lng);
+		const data = await fetchYouTubeVideosByLocation(clickedCoords.lat, clickedCoords.lng, radius);
 		if (data && data.items) {
 			setVideoIds(data.items.map(video => video.id.videoId));
+		} else {
+			setVideoMessage("No Videos Found")
 		}
 	}
 
@@ -32,21 +42,29 @@ function App() {
 	}
 
 	return (
-		<>
+		<div className="app">
 			<h1>YouTube GeoFinder</h1>
 
-			<h3>Click on a Location on the map</h3>
-			<MapComponent clickedCoords={clickedCoords} setClickedCoords={setClickedCoords} radius={radius}/>
+			<div className="input-container">
+				<div className="map-container">
+					<h3 className="map-message">Click on a location on the map</h3>
+					<MapComponent clickedCoords={clickedCoords} setClickedCoords={setClickedCoords} radius={radius} />
+				</div>
 
-			<h3>{`Search Radius: ${radius}km`}</h3>
-			<DiscreteSlider value={radius} setValue={setRadius} />
+				<div className="radius-slider-container">
+					<h3>{`Search Radius: ${radius}km`}</h3>
+					<DiscreteSlider value={radius} setValue={setRadius} />
+				</div>
 
-			<button onClick={handleSearchClick}>Search</button>
+				<button className="search-button" onClick={handleSearchClick}>Search </button>
+			</div>
 
-			{videoList}
 
-		</>
-
+			<div className="video-container">
+				<h2 className="video-message">{videoMessage}</h2>
+				{videoIds.length > 0 && videoList}
+			</div>
+		</div>
 	);
 
 

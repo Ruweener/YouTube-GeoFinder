@@ -1,0 +1,113 @@
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+} 
+
+.map-container,
+.radius-slider-container
+{
+  margin: 20px auto;
+}
+
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 20px;
+  row-gap: 20px;
+  width: 100%; /* Ensure the list takes full width of its container */
+}
+
+/*
+ * Styles for making individual YouTube videos responsive.
+ */
+.video-item-wrapper {
+  /* Flex properties for a nice grid layout that wraps on small screens */
+  flex: 1 1 300px; /* flex-grow, flex-shrink, flex-basis */
+  max-width: 300px; /* A good max size for a single video */
+
+  /* The "aspect-ratio box" trick */
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio (9 / 16 = 0.5625) */
+  height: 0;
+  overflow: hidden;
+  border-radius: 8px; /* Optional: for rounded corners */
+}
+
+.video-item-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+
+.video-container {
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 100%; /* Cap the width on very large screens */
+  box-sizing: border-box;
+}
+
+.input-container {
+  background-color: #1a1a1a;
+  border-radius: 20px;
+  padding: 20px;
+  width: 90%;
+; /* Cap the width on very large screens */
+  box-sizing: border-box;
+}
+
+.radius-slider-container {
+  width: 50%; /* Allow the slider to fill the container */
+  max-width: 400px;
+}
+
+.search-button {
+  background-color: red;
+  width: 200px;
+}
+
+.map-message {
+  font-size: 1.5em;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* --- Responsive Design --- */
+
+/* For tablets and smaller devices */
+@media (max-width: 768px) {
+  .input-container {
+    padding: 20px 15px;
+  }
+
+  h1 {
+    font-size: 2.8em;
+  }
+}
+
+/* For mobile phones */
+@media (max-width: 480px) {
+  #root {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+}
