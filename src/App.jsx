@@ -4,10 +4,12 @@ import "./css/App.css"
 import MapComponent from './components/MapComponent';
 import DiscreteSlider from "./components/Slider";
 import YouTubeVideoEmbed from "./components/YouTubeVideoEmbed";
+import logo from "./assets/logo.png";
+
 
 function App() {
 	const [videoIds, setVideoIds] = useState([]);
-	const [radius, setRadius] = useState(50);
+	const [radius, setRadius] = useState(0);
 	const [clickedCoords, setClickedCoords] = useState({ lat: 43.6532, lng: -79.3832 }) //default coordinates (toronto, ON CA)
 	const [videoMessage, setVideoMessage] = useState("");
 
@@ -44,6 +46,7 @@ function App() {
 	return (
 		<div className="app">
 			<h1>YouTube GeoFinder</h1>
+			<img className="logo" src={logo} alt="logo" />
 
 			<div className="input-container">
 				<div className="map-container">

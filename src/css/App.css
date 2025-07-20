@@ -12,6 +12,10 @@
   margin: 20px auto;
 }
 
+.map-container {
+  border-radius: 8px;
+}
+
 .video-list {
   display: flex;
   flex-wrap: wrap;
@@ -25,22 +29,14 @@
  * Styles for making individual YouTube videos responsive.
  */
 .video-item-wrapper {
-  /* Flex properties for a nice grid layout that wraps on small screens */
-  flex: 1 1 300px; /* flex-grow, flex-shrink, flex-basis */
-  max-width: 300px; /* A good max size for a single video */
-
-  /* The "aspect-ratio box" trick */
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio (9 / 16 = 0.5625) */
-  height: 0;
+  flex: 1 1 400px; /* flex-grow, flex-shrink, flex-basis */
+  max-width: 480px; /* A good max size for a single video, feel free to adjust */
+  aspect-ratio: 16 / 9; /* This directly sets the 16:9 aspect ratio */
   overflow: hidden;
   border-radius: 8px; /* Optional: for rounded corners */
 }
 
 .video-item-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -55,6 +51,7 @@
   width: 90%;
   max-width: 100%; /* Cap the width on very large screens */
   box-sizing: border-box;
+  border: white 2px solid;
 }
 
 .input-container {
@@ -62,8 +59,9 @@
   border-radius: 20px;
   padding: 20px;
   width: 90%;
-; /* Cap the width on very large screens */
+ /* Cap the width on very large screens */
   box-sizing: border-box;
+  border: white 2px solid;
 }
 
 .radius-slider-container {
@@ -88,6 +86,11 @@
   width: 100%;
 }
 
+.logo {
+  width: 200px;
+  margin-bottom: 30px;
+}
+
 /* --- Responsive Design --- */
 
 /* For tablets and smaller devices */
@@ -102,7 +105,7 @@
 }
 
 /* For mobile phones */
-@media (max-width: 480px) {
+@media (max-width: 430px) {
   #root {
     padding: 1rem;
   }
