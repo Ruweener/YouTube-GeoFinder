@@ -5,6 +5,8 @@ import MapComponent from './components/MapComponent';
 import DiscreteSlider from "./components/Slider";
 import YouTubeVideoEmbed from "./components/YouTubeVideoEmbed";
 import logo from "./assets/logo.png";
+import { FaArrowPointer, FaLocationArrow, FaYoutube  } from "react-icons/fa6";
+
 
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
 	), [videoIds]);
 
 	useEffect(() => {
-		setVideoMessage(`${videoIds.length} Videos Found`)
+		setVideoMessage(`${videoIds.length} Videos Found `)
 	}, [videoIds])
 
 	useEffect(() => {
@@ -45,12 +47,14 @@ function App() {
 
 	return (
 		<div className="app">
-			<h1>YouTube GeoFinder</h1>
+
+			<h1 className="Title">YouTube GeoFinder</h1>
 			<img className="logo" src={logo} alt="logo" />
+			<p className="description">Explore the YouTube landscape from around the world!</p>
 
 			<div className="input-container">
 				<div className="map-container">
-					<h3 className="map-message">Click on a location on the map</h3>
+					<h3 className="map-message">Click Map to Select Location {<FaArrowPointer />}</h3>
 					<MapComponent clickedCoords={clickedCoords} setClickedCoords={setClickedCoords} radius={radius} />
 				</div>
 
@@ -59,12 +63,12 @@ function App() {
 					<DiscreteSlider value={radius} setValue={setRadius} />
 				</div>
 
-				<button className="search-button" onClick={handleSearchClick}>Search </button>
+				<button className="search-button" onClick={handleSearchClick}>Search {<FaLocationArrow />} </button>
 			</div>
 
 
 			<div className="video-container">
-				<h2 className="video-message">{videoMessage}</h2>
+				<h2 className="video-message">{videoMessage} <FaYoutube /></h2>
 				{videoIds.length > 0 && videoList}
 			</div>
 		</div>

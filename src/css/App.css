@@ -75,7 +75,8 @@
 }
 
 .map-message {
-  font-size: 1.5em;
+  font-size: 1.5em; 
+  padding: 0;
 }
 
 .app {
@@ -87,8 +88,12 @@
 }
 
 .logo {
-  width: 200px;
-  margin-bottom: 30px;
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-bottom: 40px;
 }
 
 /* --- Responsive Design --- */
@@ -108,6 +113,10 @@
 @media (max-width: 430px) {
   #root {
     padding: 1rem;
+  }
+
+  .logo {
+    width: 200px;
   }
 
   h1 {
