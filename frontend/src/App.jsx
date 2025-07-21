@@ -51,6 +51,9 @@ function App() {
 			<h1 className="Title">YouTube GeoFinder</h1>
 			<img className="logo" src={logo} alt="logo" />
 			<p className="description">Explore the YouTube landscape from around the world!</p>
+			{/* <a href="https://github.com/Ruweener/YouTube-GeoFinder" target="_blank" rel="noopener noreferrer">
+				<button className="github-button">View on GitHub</button>
+			</a> */}
 
 			<div className="input-container">
 				<div className="map-container">
@@ -72,6 +75,7 @@ function App() {
 				{videoIds.length > 0 && videoList}
 			</div>
 		</div>
+		
 	);
 
 
