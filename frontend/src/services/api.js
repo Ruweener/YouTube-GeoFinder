@@ -3,7 +3,7 @@ export const API_KEY = import.meta.env.VITE_GOOGLE_CLOUD_API_KEY;
 export const fetchYouTubeVideosByLocation = async (lat, lng, radius) => {
     const maxResults = 12;
 
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&location=${lat},${lng}&locationRadius=${radius}km&maxResults=${maxResults}&key=${API_KEY}`;
+    const url = `/api/youtube?lat=${lat}&lng=${lng}&radius=${radius}`;
     
 
     try {
