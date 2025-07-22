@@ -5,7 +5,7 @@ import MapComponent from './components/MapComponent';
 import DiscreteSlider from "./components/Slider";
 import YouTubeVideoEmbed from "./components/YouTubeVideoEmbed";
 import logo from "./assets/logo.png";
-import { FaArrowPointer, FaLocationArrow, FaYoutube  } from "react-icons/fa6";
+import { FaArrowPointer, FaLocationArrow, FaYoutube, FaGithub} from "react-icons/fa6";
 
 
 
@@ -51,9 +51,7 @@ function App() {
 			<h1 className="Title">YouTube GeoFinder</h1>
 			<img className="logo" src={logo} alt="logo" />
 			<p className="description">Explore the YouTube landscape from around the world!</p>
-			{/* <a href="https://github.com/Ruweener/YouTube-GeoFinder" target="_blank" rel="noopener noreferrer">
-				<button className="github-button">View on GitHub</button>
-			</a> */}
+			
 
 			<div className="input-container">
 				<div className="map-container">
@@ -69,11 +67,17 @@ function App() {
 				<button className="search-button" onClick={handleSearchClick}>Search {<FaLocationArrow />} </button>
 			</div>
 
-
 			<div className="video-container">
 				<h2 className="video-message">{videoMessage} <FaYoutube /></h2>
 				{videoIds.length > 0 && videoList}
 			</div>
+			
+			<footer className="footer">
+				<a href="https://github.com/Ruweener/YouTube-GeoFinder" target="_blank" rel="noopener noreferrer">
+				<button className="github-button">View on GitHub {<FaGithub />}</button>
+				</a>
+				<p>© 2025 Ruween M. All Rights Reserved.</p>
+			</footer>
 		</div>
 		
 	);

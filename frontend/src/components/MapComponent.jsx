@@ -1,5 +1,4 @@
 import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
-import { useState } from 'react';
 import { API_KEY } from '../services/api';
 
 const containerStyle = {
@@ -22,7 +21,6 @@ function MapWithClick({ clickedCoords, setClickedCoords, radius = 0 }) {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
         setClickedCoords({ lat, lng });
-        console.log(e);
     };
 
     return (
