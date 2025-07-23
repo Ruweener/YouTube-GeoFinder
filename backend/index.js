@@ -15,8 +15,9 @@ app.use(express.static(path.join(__dirname, "../frontend/dist")));
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY;
 
-app.get("/api/youtube", async (req, res) => {
-    const {lat, lng, radius, maxResults = 12} = req.query;
+app.get("/api/youtube:lat,:lng,:radius", async (req, res) => {
+    const maxResults = 12;
+    const {lat, lng, radius} = req.params;
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&location=${lat},${lng}&locationRadius=${radius}km&maxResults=${maxResults}&type=video&key=${API_KEY}`;
 
     try {
