@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY;
 
 app.get("/api/youtube", async (req, res) => {
-    const {lat, lng, radius} = req.query;
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&location=${lat},${lng}&locationRadius=${radius}km&maxResults=12&type=video&key=${API_KEY}`;
+    const {lat, lng, radius, maxResults = 12} = req.query;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&location=${lat},${lng}&locationRadius=${radius}km&maxResults=${maxResults}&type=video&key=${API_KEY}`;
 
     try {
         const response = await axios.get(url);
@@ -28,9 +28,9 @@ app.get("/api/youtube", async (req, res) => {
     }
 });
 
-app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-})
+// app.get("/*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+// })
 
 
 app.listen(PORT, () => {
