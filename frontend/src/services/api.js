@@ -1,5 +1,5 @@
 export const API_KEY = import.meta.env.VITE_GOOGLE_CLOUD_API_KEY;
-const ROOT = import.meta.env.VITE_ROOT;
+const ROOT = "https://youtube-geofinder.onrender.com";
 
 
 export const fetchYouTubeVideosByLocation = async (lat, lng, radius) => {
