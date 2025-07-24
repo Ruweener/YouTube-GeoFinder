@@ -9,8 +9,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 dotenv.config();
 const app = express();
-app.use(cors({origin: "*"})); 
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+};
+
+app.use(cors(corsOptions)); 
 
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY;
@@ -27,11 +31,6 @@ app.get("/api/youtube", async (req, res) => {
         res.status(500).json({error: "YouTube API request failed"})
     }
 });
-
-// This is important for single-page applications (SPAs) like yours
-app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-})
 
 
 app.listen(PORT, () => {
