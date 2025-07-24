@@ -1,10 +1,9 @@
-export const API_KEY = import.meta.env.VITE_GOOGLE_CLOUD_API_KEY;
-
 
 export const fetchYouTubeVideosByLocation = async (lat, lng, radius) => {
     const maxResults = 12;
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
 
-    const url = `/api/youtube?lat=${lat}&lng=${lng}&radius=${radius}`;
+    const url = `${apiBaseUrl}/api/youtube?lat=${lat}&lng=${lng}&radius=${radius}`;
     
 
     try {
