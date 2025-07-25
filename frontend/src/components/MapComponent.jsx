@@ -1,6 +1,6 @@
 import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/api';
 
-const API_KEY = import.meta.env.VITE_GOOGLE_CLOUD_API_KEY;
+const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const containerStyle = {
     width: '100%',
