@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import axios from "axios";
 import dotenv from "dotenv";
-import path, {dirname} from "path";
+import {dirname} from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -23,6 +23,7 @@ app.get("/api/youtube", async (req, res) => {
     const {lat, lng, radius, maxResults = 12} = req.query;
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&location=${lat},${lng}&locationRadius=${radius}km&maxResults=${maxResults}&type=video&key=${API_KEY}`;
 
+    console.log(url);
     try {
         const response = await axios.get(url);
         res.json(response.data);
