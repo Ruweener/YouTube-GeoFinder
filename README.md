@@ -1,9 +1,5 @@
 # YouTube GeoFinder
 
-Explore the YouTube landscape from around the world.
-
-**Badges**: ![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)  
-
 **Overview**
 - Explore YouTube videos geographically — search and browse videos by location, view embedded players, and preview results on an interactive map.
 
