@@ -21,3 +21,16 @@ export const fetchYouTubeVideosByLocation = async (lat, lng, radius) => {
         console.error(err);
     }
 }
+
+export const wakeServer = async () => {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+    const url = `${apiBaseUrl}/api/ping`;
+
+    try {
+        const response = await fetch(url);
+        return response.ok;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}

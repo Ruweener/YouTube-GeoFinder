@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { fetchYouTubeVideosByLocation } from './services/api';
+import { fetchYouTubeVideosByLocation, wakeServer } from './services/api';
 import "./css/App.css"
 import MapComponent from './components/MapComponent';
 import DiscreteSlider from "./components/Slider";
@@ -11,16 +11,16 @@ import { FaArrowPointer, FaLocationArrow, FaYoutube, FaGithub } from "react-icon
 
 function App() {
 	const [videoIds, setVideoIds] = useState([]);
-	const [radius, setRadius] = useState(0);
+	const [radius, setRadius] = useState(50);
 	const [clickedCoords, setClickedCoords] = useState({ lat: 43.6532, lng: -79.3832 }) //default coordinates (toronto, ON CA)
 	const [isLoading, setIsLoading] = useState(false);
 	const [videoMessage, setVideoMessage] = useState("");
 
 	const videoList = useMemo(() => (
 		<div className="video-list">
-			{videoIds.map((videoId, id) => {
-				return <YouTubeVideoEmbed videoId={videoId} key={id} />
-			})}
+			{ videoIds.map((videoId, id) => {
+				return <YouTubeVideoEmbed videoId={ videoId } key={ id } />
+			}) }
 		</div>
 
 	), [videoIds]);
@@ -35,7 +35,7 @@ function App() {
 
 	useEffect(() => {
 		if (isLoading) {
-			setVideoMessage("Fetching Videos...");
+			setVideoMessage("Fetching Videos... (If this takes a moment, please wait, servers may be starting up)");
 		}
 	}, [isLoading])
 
@@ -59,40 +59,51 @@ function App() {
 		}
 	}
 
+	async function handleWakeAndSearchClick() {
+		setIsLoading(true);
+		try {
+			await wakeServer();
+			await loadFetchedVideos();
+		} catch (error) {
+			console.error("Error waking server or fetching videos:", error);
+			setIsLoading(false);
+		}
+	}
+
 	const handleSearchClick = () => {
-		loadFetchedVideos();
+		handleWakeAndSearchClick();
 	}
 
 	return (
 		<div className="app">
 
 			<h1 className="Title">YouTube GeoFinder</h1>
-			<img className="logo" src={logo} alt="logo" />
+			<img className="logo" src={ logo } alt="logo" />
 			<p className="description">Explore the YouTube landscape from around the world!</p>
 
 
 			<div className="input-container">
 				<div className="map-container">
-					<h3 className="map-message">Click Map to Select Location {<FaArrowPointer />}</h3>
-					<MapComponent clickedCoords={clickedCoords} setClickedCoords={setClickedCoords} radius={radius} />
+					<h3 className="map-message">Select a Location On the Map { <FaArrowPointer /> }</h3>
+					<MapComponent clickedCoords={ clickedCoords } setClickedCoords={ setClickedCoords } radius={ radius } />
 				</div>
 
 				<div className="radius-slider-container">
-					<h3>{`Search Radius: ${radius}km`}</h3>
-					<DiscreteSlider value={radius} setValue={setRadius} />
+					<h3>{ `Search Radius: ${radius}km` }</h3>
+					<DiscreteSlider value={ radius } setValue={ setRadius } />
 				</div>
 
-				<button className="search-button" onClick={handleSearchClick} disabled={isLoading}>{isLoading? "Loading...": "Search"} {<FaLocationArrow />} </button>
+				<button className="search-button" onClick={ handleSearchClick } disabled={ isLoading }>{ isLoading ? "Starting..." : "Search" } { <FaLocationArrow /> } </button>
 			</div>
 
 			<div className="video-container">
-				<h2 className="video-message">{videoMessage} <FaYoutube /></h2>
-				{videoIds.length > 0 && videoList}
+				<h2 className="video-message">{ videoMessage } <FaYoutube /></h2>
+				{ videoIds.length > 0 && videoList }
 			</div>
 
 			<footer className="footer">
 				<a href="https://github.com/Ruweener/YouTube-GeoFinder" target="_blank" rel="noopener noreferrer">
-					<button className="github-button">View on GitHub {<FaGithub />}</button>
+					<button className="github-button">View on GitHub { <FaGithub /> }</button>
 				</a>
 				<p>© 2025 Ruween M. All Rights Reserved.</p>
 			</footer>

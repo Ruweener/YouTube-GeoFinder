@@ -19,6 +19,10 @@ app.use(cors(corsOptions));
 const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.GOOGLE_CLOUD_API_KEY;
 
+app.get("/api/ping", (req, res) => {
+    res.json({ ok: true, timestamp: Date.now() });
+});
+
 app.get("/api/youtube", async (req, res) => {
     const {lat, lng, radius, maxResults = 12} = req.query;
     const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&location=${lat},${lng}&locationRadius=${radius}km&maxResults=${maxResults}&type=video&key=${API_KEY}`;
